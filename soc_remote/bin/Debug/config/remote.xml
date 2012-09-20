@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <dirtree>
+    <current>1</current>
+    <parent>0</parent>
+    <currentname>VMPU</currentname>
+  </dirtree>
+  <dirtree>
+    <current>2</current>
+    <parent>0</parent>
+    <currentname>Remote</currentname>
+  </dirtree>
+  <dirtree>
+    <current>3</current>
+    <parent>2</parent>
+    <currentname>test</currentname>
+  </dirtree>
+  <dirtree>
+    <current>4</current>
+    <parent>3</parent>
+    <currentname>remoteaa</currentname>
+  </dirtree>
+  <dirtree>
+    <current>4</current>
+    <parent>1</parent>
+    <currentname>vmaa</currentname>
+  </dirtree>
+
+</root>

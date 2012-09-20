@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <control>
+    <text>1</text>		
+    <x>30</x>			
+    <y>40</y>				
+    <w>40</w>				
+    <h>20</h>			
+    <type>button</type>	
+    <event>
+      <type>click1</type>		
+      <line>remote menu1</line>	
+    </event>
+  <event>
+      <type>click11</type>		
+      <line>remote menu11</line>	
+    </event>
+  </control>
+  <control>
+    <text>2</text>
+    <x>150</x>
+    <y>40</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click2</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>3</text>
+    <x>270</x>
+    <y>40</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>4</text>
+    <x>30</x>
+    <y>70</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>5</text>
+    <x>150</x>
+    <y>70</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>6</text>
+    <x>270</x>
+    <y>70</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>7</text>
+    <x>30</x>
+    <y>100</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>8</text>
+    <x>150</x>
+    <y>100</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>9</text>
+    <x>270</x>
+    <y>100</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>RECALL</text>
+    <x>30</x>
+    <y>130</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>0</text>
+    <x>150</x>
+    <y>130</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>INFO</text>
+    <x>270</x>
+    <y>130</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>MENU</text>
+    <x>30</x>
+    <y>180</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>UP</text>
+    <x>150</x>
+    <y>180</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>RETURN</text>
+    <x>270</x>
+    <y>180</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>LEFT</text>
+    <x>80</x>
+    <y>210</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>ENTER</text>
+    <x>150</x>
+    <y>210</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>RIGHT</text>
+    <x>220</x>
+    <y>210</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>GUID</text>
+    <x>30</x>
+    <y>240</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>DOWN</text>
+    <x>150</x>
+    <y>240</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>FAV</text>
+    <x>270</x>
+    <y>240</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+</root>
+
+

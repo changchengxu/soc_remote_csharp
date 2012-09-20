@@ -1,0 +1,1 @@
+start soc_remote.exe "-debug"
