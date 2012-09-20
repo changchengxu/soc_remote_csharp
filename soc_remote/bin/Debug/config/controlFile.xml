@@ -3,7 +3,7 @@
   <control>
     <text>1</text>		
     <x>30</x>			
-    <y>40</y>				
+    <y>20</y>				
     <w>40</w>				
     <h>20</h>			
     <type>button</type>	
@@ -19,7 +19,7 @@
   <control>
     <text>2</text>
     <x>150</x>
-    <y>40</y>
+    <y>20</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -31,7 +31,7 @@
   <control>
     <text>3</text>
     <x>270</x>
-    <y>40</y>
+    <y>20</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -43,7 +43,7 @@
   <control>
     <text>4</text>
     <x>30</x>
-    <y>70</y>
+    <y>50</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -55,7 +55,7 @@
   <control>
     <text>5</text>
     <x>150</x>
-    <y>70</y>
+    <y>50</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -67,7 +67,7 @@
   <control>
     <text>6</text>
     <x>270</x>
-    <y>70</y>
+    <y>50</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -79,7 +79,7 @@
   <control>
     <text>7</text>
     <x>30</x>
-    <y>100</y>
+    <y>80</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -91,7 +91,7 @@
   <control>
     <text>8</text>
     <x>150</x>
-    <y>100</y>
+    <y>80</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -103,7 +103,7 @@
   <control>
     <text>9</text>
     <x>270</x>
-    <y>100</y>
+    <y>80</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -113,9 +113,9 @@
     </event>
   </control>
   <control>
-    <text>RECALL</text>
+    <text>tv_radio</text>
     <x>30</x>
-    <y>130</y>
+    <y>110</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -127,7 +127,7 @@
   <control>
     <text>0</text>
     <x>150</x>
-    <y>130</y>
+    <y>110</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -137,9 +137,21 @@
     </event>
   </control>
   <control>
-    <text>INFO</text>
+    <text>return</text>
     <x>270</x>
-    <y>130</y>
+    <y>110</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>MUTE</text>
+    <x>150</x>
+    <y>140</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -150,8 +162,20 @@
   </control>
   <control>
     <text>MENU</text>
-    <x>30</x>
-    <y>180</y>
+    <x>50</x>
+    <y>163</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+  <control>
+    <text>EXIT</text>
+    <x>250</x>
+    <y>163</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -173,21 +197,9 @@
     </event>
   </control>
   <control>
-    <text>RETURN</text>
-    <x>270</x>
-    <y>180</y>
-    <w>40</w>
-    <h>20</h>
-    <type>button</type>
-    <event>
-      <type>click</type>
-      <line>remote menu</line>
-    </event>
-  </control>
-  <control>
     <text>LEFT</text>
-    <x>80</x>
-    <y>210</y>
+    <x>90</x>
+    <y>213</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -197,9 +209,9 @@
     </event>
   </control>
   <control>
-    <text>ENTER</text>
+    <text>OK</text>
     <x>150</x>
-    <y>210</y>
+    <y>213</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -210,20 +222,8 @@
   </control>
   <control>
     <text>RIGHT</text>
-    <x>220</x>
-    <y>210</y>
-    <w>40</w>
-    <h>20</h>
-    <type>button</type>
-    <event>
-      <type>click</type>
-      <line>remote menu</line>
-    </event>
-  </control>
-  <control>
-    <text>GUID</text>
-    <x>30</x>
-    <y>240</y>
+    <x>210</x>
+    <y>213</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -235,7 +235,7 @@
   <control>
     <text>DOWN</text>
     <x>150</x>
-    <y>240</y>
+    <y>246</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>
@@ -245,9 +245,165 @@
     </event>
   </control>
   <control>
-    <text>FAV</text>
+    <text>PG_PLUS</text>
+    <x>50</x>
+    <y>266</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+ <control>
+    <text>PG_MINUS</text>
+    <x>250</x>
+    <y>266</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>CHANNEL_LIST</text>
+    <x>30</x>
+    <y>295</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>EPG</text>
+    <x>110</x>
+    <y>295</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>INFO</text>
+    <x>190</x>
+    <y>295</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>SERVICE</text>
     <x>270</x>
-    <y>240</y>
+    <y>295</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>RED</text>
+    <x>30</x>
+    <y>325</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>GREEN</text>
+    <x>110</x>
+    <y>325</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>YELLOW</text>
+    <x>190</x>
+    <y>325</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>BLUE</text>
+    <x>270</x>
+    <y>325</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>F1</text>
+    <x>30</x>
+    <y>355</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>F2</text>
+    <x>110</x>
+    <y>355</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>F3</text>
+    <x>190</x>
+    <y>355</y>
+    <w>40</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>remote menu</line>
+    </event>
+  </control>
+<control>
+    <text>F4</text>
+    <x>270</x>
+    <y>355</y>
     <w>40</w>
     <h>20</h>
     <type>button</type>

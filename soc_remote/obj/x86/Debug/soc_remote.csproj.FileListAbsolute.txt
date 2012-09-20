@@ -28,3 +28,13 @@ E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_C#\soc_remote\o
 E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_C#\soc_remote\bin\Debug\soc_remote.exe
 E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_C#\soc_remote\bin\Debug\soc_remote.pdb
 E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_C#\soc_remote\bin\Debug\GSoft.dll
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.exe
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.pdb
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\bin\Debug\soc_remote.exe
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\bin\Debug\soc_remote.pdb
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\bin\Debug\GSoft.dll
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_main.resources
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.Properties.Resources.resources
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\GenerateResource.write.1.tlog

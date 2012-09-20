@@ -53,7 +53,7 @@
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.panel2);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.panel1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(579, 514);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(579, 489);
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 27);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.Size = new System.Drawing.Size(579, 514);
@@ -68,16 +68,16 @@
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Location = new System.Drawing.Point(169, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(407, 508);
+            this.panel2.Size = new System.Drawing.Size(407, 423);
             this.panel2.TabIndex = 1;
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(401, 505);
+            this.dataGridView1.Size = new System.Drawing.Size(407, 387);
             this.dataGridView1.TabIndex = 1;
             // 
             // panel1
@@ -87,7 +87,7 @@
             this.panel1.Controls.Add(this.treeView_dir);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(163, 508);
+            this.panel1.Size = new System.Drawing.Size(163, 483);
             this.panel1.TabIndex = 0;
             // 
             // treeView_dir
@@ -95,7 +95,7 @@
             this.treeView_dir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView_dir.Location = new System.Drawing.Point(0, 0);
             this.treeView_dir.Name = "treeView_dir";
-            this.treeView_dir.Size = new System.Drawing.Size(163, 508);
+            this.treeView_dir.Size = new System.Drawing.Size(163, 483);
             this.treeView_dir.TabIndex = 0;
             this.treeView_dir.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_dir_AfterSelect);
             // 
@@ -143,7 +143,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 539);
+            this.ClientSize = new System.Drawing.Size(579, 443);
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "gf_main";

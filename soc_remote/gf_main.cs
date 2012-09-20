@@ -200,6 +200,10 @@ namespace soc_remote
                         {
                             if (ctrl.Ctr_Text == tempColor) { button.BackColor = System.Drawing.Color.Gray; }
                         }
+                        if (ctrl.Ctr_Text == "RED")   { button.BackColor = System.Drawing.Color.Red; }
+                        if (ctrl.Ctr_Text == "GREEN") { button.BackColor = System.Drawing.Color.Green; }
+                        if (ctrl.Ctr_Text == "YELLOW"){ button.BackColor = System.Drawing.Color.Yellow; }
+                        if (ctrl.Ctr_Text == "BLUE")  { button.BackColor = System.Drawing.Color.Blue; }
                         //button.Click+=new EventHandler();
 #if print
 				ConsoleU.writeLine(String.Format("buttonName={0}\"buttonText={1}\"X={2}\"Y={3}",button.Name,button.Text,ctrl.Ctr_X,ctrl.Ctr_Y), ConsoleU.Level.Info);
