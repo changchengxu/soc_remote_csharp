@@ -8,11 +8,11 @@
     <h>20</h>			
     <type>button</type>	
     <event>
-      <type>click1</type>		
+      <type>click</type>		
       <line>remote menu1</line>	
     </event>
   <event>
-      <type>click11</type>		
+      <type>enter</type>		
       <line>remote menu11</line>	
     </event>
   </control>
@@ -114,9 +114,9 @@
   </control>
   <control>
     <text>tv_radio</text>
-    <x>30</x>
+    <x>40</x>
     <y>110</y>
-    <w>40</w>
+    <w>61</w>
     <h>20</h>
     <type>button</type>
     <event>
@@ -138,9 +138,9 @@
   </control>
   <control>
     <text>return</text>
-    <x>270</x>
+    <x>231</x>
     <y>110</y>
-    <w>40</w>
+    <w>61</w>
     <h>20</h>
     <type>button</type>
     <event>

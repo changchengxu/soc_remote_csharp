@@ -45,6 +45,7 @@ namespace soc_remote
 
         string dir;//directory
         cc_controls mctrls;
+
         public gf_main(string[] args)
         {
             InitializeComponent();
@@ -68,6 +69,8 @@ namespace soc_remote
 
             DockU mDockTuner = new DockU(this);
             mDockTuner.isEnabled = true;
+
+            debugToolStripMenuItem.Checked = true;
         }
 
 
@@ -180,7 +183,7 @@ namespace soc_remote
         {
             if (mctrls.ctrlCount > 0)
             {
-                Int32 index = 1;
+                Int32 index = 0;
                 foreach (cc_control ctrl in mctrls.ctrlsItem)
                 {
                     if (ctrl.Ctr_Type == "button")
@@ -195,6 +198,9 @@ namespace soc_remote
                         button.Location = new System.Drawing.Point(ctrl.Ctr_X, ctrl.Ctr_Y);
                         button.Size = new System.Drawing.Size(ctrl.Ctr_Width, ctrl.Ctr_Height);
                         button.UseVisualStyleBackColor = true;
+                        button.Click += new System.EventHandler(button_Click);
+                        button.Enter += new System.EventHandler(button_Enter);
+
                         String color = "0,1,2,3,4,5,6,7,8,9,UP,DOWN,LEFT,RIGHT"; //set controls color 
                         foreach (String tempColor in color.Split(','))
                         {
@@ -230,6 +236,26 @@ namespace soc_remote
             }
         }
         #endregion
+
+        #region button click
+        private void button_Click(object sender, EventArgs e)
+        {
+            Button btn_Click = (Button)sender;
+            for (int i=0; i < cc_control.dtEvent.Rows.Count; i++)
+            {
+                if (cc_control.dtEvent.Rows[i][CTRLEVENTNAME].ToString() == btn_Click.Text)
+                {
+                    ConsoleU.writeLine(String.Format("you click: {0} button \"command line:{1}\"", btn_Click.Text, cc_control.dtEvent.Rows[i][CTRLLINE].ToString()), ConsoleU.Level.Info);
+                }
+            }
+
+        }
+        #endregion
+
+        private void button_Enter(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }

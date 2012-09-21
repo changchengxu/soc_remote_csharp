@@ -22,6 +22,7 @@ namespace soc_remote.control
         //String Ctr_Event;
         //String Ctrl_Line;
         public cc_event mevent;
+static  public DataTable dtEvent;//event DataTable
         public cc_control()
         {
             mevent = new cc_event();
@@ -127,7 +128,7 @@ namespace soc_remote.control
             load(dir);
             createDataSet(ds);
             DataTable dtCtrol = ds.Tables[gf_main.DIRCTRL];
-            DataTable dtEvent = ds.Tables[gf_main.DIREVENT];
+            cc_control.dtEvent = ds.Tables[gf_main.DIREVENT];
             foreach (cc_control ctrl in ctrlsItem)
             {
                 DataRow dr = dtCtrol.NewRow();
@@ -140,11 +141,11 @@ namespace soc_remote.control
                 dtCtrol.Rows.Add(dr);
                 foreach (cc_event locEvent in ctrl.mevent.eventItems)
                 {
-                    DataRow drEvent = dtEvent.NewRow();
+                    DataRow drEvent = cc_control.dtEvent.NewRow();
                     drEvent[gf_main.CTRLEVENTNAME] = ctrl.Ctr_Text;
                     drEvent[gf_main.CTRLEVENT] = locEvent.mCtr_Event;
                     drEvent[gf_main.CTRLLINE] = locEvent.mCtrl_Line;
-                    dtEvent.Rows.Add(drEvent);
+                    cc_control.dtEvent.Rows.Add(drEvent);
                 }
             }
             return 0;
