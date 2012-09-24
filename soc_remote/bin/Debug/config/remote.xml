@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <dirtree>
+<dirtree>
     <current>1</current>
     <parent>0</parent>
-    <currentname>VMPU</currentname>
+    <currentname>remote</currentname>
   </dirtree>
   <dirtree>
     <current>2</current>
-    <parent>0</parent>
-    <currentname>Remote</currentname>
+    <parent>1</parent>
+    <currentname>remote menu</currentname>
   </dirtree>
   <dirtree>
     <current>3</current>
-    <parent>2</parent>
-    <currentname>test</currentname>
+    <parent>1</parent>
+    <currentname>sys time</currentname>
   </dirtree>
   <dirtree>
     <current>4</current>
     <parent>3</parent>
-    <currentname>remoteaa</currentname>
+    <currentname>test</currentname>
   </dirtree>
   <dirtree>
-    <current>4</current>
-    <parent>1</parent>
-    <currentname>vmaa</currentname>
+    <current>5</current>
+    <parent>4</parent>
+    <currentname>remot5</currentname>
   </dirtree>
-
+  <dirtree>
+    <current>6</current>
+    <parent>1</parent>
+    <currentname>epg today</currentname>
+  </dirtree>
 </root>

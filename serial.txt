@@ -1,0 +1,39 @@
+最后是关闭串口：try {
+		mSpSlot->Close();
+	} catch (InvalidOperationException^ e) {
+		ConsoleU::writeLine(String::Format("close [{0}] failed, {1}", mName, e->Message),
+			ConsoleU::Level::Error);
+		return -1;
+	}
+	ConsoleU::writeLine(String::Format("close [{0}] ok", mName), ConsoleU::Level::Info);
+
+	mSpSlot->~SerialPort();
+//---------------------------------------
+
+if (mSerialPort->BytesToRead <= 0) {
+			ConsoleU::writeLine("empty trigger", ConsoleU::Level::Warning);
+			return;
+		}
+
+mBytesRead += mSerialPort->Read(mReadBuffer, mBytesRead, mSerialPort->BytesToRead);
+
+
+	mSerialPort->Write(buffer, 0, buffer->Length);
+
+//初始化的时候 定义串口:
+	mSerialPort->DataReceived += gcnew SerialDataReceivedEventHandler(this, &UartProtocol::dataReceived);
+
+//首先是是主窗体读取串口个数
+
+Void GF_Main::GF_Main_Load(System::Object^  sender, System::EventArgs^  e) {
+	array<String^>^ ports = SerialPort::GetPortNames();
+	Array::Sort(ports);
+
+	for each (String^ port in ports) {
+		Uart^ uart = gcnew Uart(port);
+		UartProtocol^ protocol = gcnew UartProtocol(uart->slot);
+		GC_Burn^ burn = gcnew GC_Burn(protocol, mFlash);
+		burn->isErrorTerminate = mIsErrorTerminate;
+		flowLayoutPanel_BurnCollection->Controls->Add(burn);
+	}
+}

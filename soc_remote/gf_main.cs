@@ -11,17 +11,21 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GSoft.Utility;
-using soc_remote.control;
-
+using soc_remote.serialport;
+using System.Drawing.Drawing2D;
+using System.IO.Ports;
 
 namespace soc_remote
 {
+
     public partial class gf_main : Form
     {
-        const string VERSION = "1.0";
+        public const string VERSION = "1.0";
         public const string FILEPATH = "config";         //read the xml folder
         public const string TREENAME = "remote.xml";     //read the xml file about the tree 
         public const string CTRLNAME = "controlFile.xml";//read the xml file about the controls
+        public const string SERIAL = "serialport.xml"; //read the xml file about the serial port
+
 
         public const string DIRTREE = "dirtree";        //read the xml file node
         public const string DIRCTRL = "control";        //read the xml file node
@@ -30,8 +34,8 @@ namespace soc_remote
         public const string CURRENT = "current";        //binding tree node...
         public const string PARENT = "parent";
         public const string CURRENTNMAE = "currentname";
-        public const string VMPU = "VMPU";          //tree parent node
-        public const string REMOTE = "Remote";        //tree parent node
+        public const string REMOTE_MENU = "remote menu";          //tree parent node
+        public const string SYS_TIME = "sys time";        //tree parent node
 
         public const string CTRLTEXT = "text"; // control parameter...
         public const string CTRLX = "x";
@@ -44,14 +48,21 @@ namespace soc_remote
         public const string CTRLEVENTNAME = "eventname";
 
         string dir;//directory
-        cc_controls mctrls;
+        public static SerialPort mCurrentSport;//Gets the current serial port object 
+        DockU mDockRemote;//Create a subsidiary form
+
+        #region //in order to move the form
+        const int WM_NCLBUTTONDOWN = 0xA1;
+        const int HT_CAPTION = 0x2;
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);//in order to move the form   
+        #endregion
 
         public gf_main(string[] args)
         {
             InitializeComponent();
-
 #if printf
-            Text = String.Format("{0} v{1} < build {2} >", Text, VERSION, DateTime.Now.ToString());
+            Text = String.Format("{0} v{1} < build {2} >", Text, gf_main.VERSION, DateTime.Now.ToString());
             ConsoleU.writeLine(Text, ConsoleU.Level.Warning);
 
             string mArgs = String.Empty;
@@ -65,43 +76,50 @@ namespace soc_remote
             ConsoleU.writeLine(String.Format("work dir = \"{0}\"", Application.StartupPath),
                 ConsoleU.Level.Warning);
 #endif
-            mctrls = new cc_controls();//initialization of controls object
 
-            DockU mDockTuner = new DockU(this);
-            mDockTuner.isEnabled = true;
+            debugToolStripMenuItem.Checked = true;//for debug initialize selected
 
-            debugToolStripMenuItem.Checked = true;
-        }
+            toolStripStatusLabel1.Text = String.Format(" {0} {1} v{2} < build {2} >","     ",Text , VERSION, DateTime.Now.ToString());
 
-
-        private void gf_main_Shown(object sender, EventArgs e)
-        {
-            ConsoleU.show();
         }
 
         #region main load
         private void gf_main_Load(object sender, EventArgs e)
         {
+            //load Tree
             loadRemoteTree();
 
-            dir = String.Format("{0}/{1}/{2}",
-                System.IO.Directory.GetCurrentDirectory(), FILEPATH, CTRLNAME);
-            DataSet ds = new DataSet();
+            //load serial
+            String[] ports = System.IO.Ports.SerialPort.GetPortNames();
+            Array.Sort(ports);
+            Int32 index = 0;
+            foreach (String port in ports)
+            {
 
-            mctrls.loadDataSet(dir, ds);//init Controls DataSet
-            dataGridView1.DataSource = ds.Tables[DIREVENT];//init dataGridView 
+                ToolStripMenuItem sportToolStripMenuItem;
+                sportToolStripMenuItem = new ToolStripMenuItem();
 
-            loadCtrls();//init control
+                sportToolStripMenuItem.Name = "sportToolStripMenuItem" + index;
+                sportToolStripMenuItem.Size = new System.Drawing.Size(109, 22 + 5 + index);
+                sportToolStripMenuItem.Text = port;
+                sportToolStripMenuItem.Click += new System.EventHandler(this.serialToolStripMenuItem_Click);
+                serialToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                sportToolStripMenuItem});
+                index++;
+            }
+
+            //dataGridView1.DataSource = ds.Tables[DIREVENT];//init dataGridView 
+
         }
         #endregion
 
-        #region load Tree
+        #region load Tree    // [9/20/2012 Administrator]
         void loadRemoteTree()
         {
             treeView_dir.Nodes.Clear();
             DataTable dtTemp = new DataTable();
 
-            String printInfo = "bind tree node... ...";
+            String printInfo = "binding tree node... ...";
             ConsoleU.writeLine(printInfo, ConsoleU.Level.Warning);
 
             DataSet ds = new DataSet();
@@ -136,6 +154,7 @@ namespace soc_remote
                 }
             }
             treeView_dir.ExpandAll();
+
         }
         //call back
         void funcBack(DataRowCollection tempDtRows, String nodeID, String nodeText, TreeNode tmpNode)
@@ -158,67 +177,128 @@ namespace soc_remote
         }
         #endregion
 
-        #region Treeview Select // [9/20/2012 Administrator]
+        #region Treeview Select
+        bool sign = false;
+        gf_remote mRemote;
+
         void treeView_dir_AfterSelect(System.Object sender, System.Windows.Forms.TreeViewEventArgs e)
         {
 #if print
 	ConsoleU.writeLine(String.Format("node selected. . {0}", e.Node.FullPath), ConsoleU.Level.Info);
 #endif
-            if (e.Node.Text == VMPU)
+            if (e.Node.Text == REMOTE_MENU)
             {
-
-                panel2.Visible = true;
-                dataGridView1.Visible = false;
+                if (!sign)
+                {
+                    //if (mCurrentSport == null)
+                    //{
+                    //    ConsoleU.writeLine("Please select the serial port to enter", ConsoleU.Level.Warning);
+                    //    return;
+                    //}
+                    mRemote = new gf_remote();
+                    mRemote.Move += new EventHandler(subFormMove);
+                  
+                    mRemote.Show();
+                    this.AddOwnedForm(mRemote);
+                    mDockRemote = new DockU(this);
+                    mDockRemote.isEnabled = true;
+                    mDockRemote.position = DockU.Position.MiddleRight;
+                    mDockRemote.process(mRemote);
+                }
+                else if (sign)
+                    mRemote.Close();
+                sign = !sign;
             }
-            else if (e.Node.Text == REMOTE)
+            else if (e.Node.Text == SYS_TIME)
             {
                 /*panel2.Visible=false;*/
                 dataGridView1.Visible = true;
+
             }
+
+            //foreach (TreeNode tr in treeView_dir.Nodes[0].Nodes)
+            //{
+            //    if (tr.Text == REMOTE_MENU)
+            //    {
+
+            //        panel2.Visible = true;
+            //        dataGridView1.Visible = false;
+            //        break;
+            //    }
+            //    else if (tr.Text == SYS_TIME)
+            //    {
+            //        /*panel2.Visible=false;*/
+            //        dataGridView1.Visible = true;
+            //        break;
+            //    }
+            //}
         }
         #endregion
 
-        #region loadCtrl // [9/20/2012 Administrator]
-        void loadCtrls()
+        #region dock the window
+        private void subFormMove(object sender, EventArgs e)//
         {
-            if (mctrls.ctrlCount > 0)
+            if (ActiveForm == sender)
             {
-                Int32 index = 0;
-                foreach (cc_control ctrl in mctrls.ctrlsItem)
+                if (ActiveForm.Text == REMOTE_MENU)
                 {
-                    if (ctrl.Ctr_Type == "button")
-                    {
-                        System.Windows.Forms.Button button;
-                        button = (new System.Windows.Forms.Button());
-                        button.Name = "button_" + index;
-                        button.Text = ctrl.Ctr_Text;
-                        button.TabIndex = index;
-                        this.panel2.Controls.Add(button);
-
-                        button.Location = new System.Drawing.Point(ctrl.Ctr_X, ctrl.Ctr_Y);
-                        button.Size = new System.Drawing.Size(ctrl.Ctr_Width, ctrl.Ctr_Height);
-                        button.UseVisualStyleBackColor = true;
-                        button.Click += new System.EventHandler(button_Click);
-                        button.Enter += new System.EventHandler(button_Enter);
-
-                        String color = "0,1,2,3,4,5,6,7,8,9,UP,DOWN,LEFT,RIGHT"; //set controls color 
-                        foreach (String tempColor in color.Split(','))
-                        {
-                            if (ctrl.Ctr_Text == tempColor) { button.BackColor = System.Drawing.Color.Gray; }
-                        }
-                        if (ctrl.Ctr_Text == "RED")   { button.BackColor = System.Drawing.Color.Red; }
-                        if (ctrl.Ctr_Text == "GREEN") { button.BackColor = System.Drawing.Color.Green; }
-                        if (ctrl.Ctr_Text == "YELLOW"){ button.BackColor = System.Drawing.Color.Yellow; }
-                        if (ctrl.Ctr_Text == "BLUE")  { button.BackColor = System.Drawing.Color.Blue; }
-                        //button.Click+=new EventHandler();
-#if print
-				ConsoleU.writeLine(String.Format("buttonName={0}\"buttonText={1}\"X={2}\"Y={3}",button.Name,button.Text,ctrl.Ctr_X,ctrl.Ctr_Y), ConsoleU.Level.Info);
-#endif
-                    }
-                    index++;
+                    mDockRemote.isDocked = false;
                 }
             }
         }
+        private void gf_main_Move(object sender, EventArgs e)
+        {
+            if (mRemote != null)
+            {
+                mDockRemote.process(mRemote);
+            }
+
+        }
+        #endregion
+
+        #region serial click and received data
+        private void serialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem serial_Sport = (ToolStripMenuItem)sender;
+            if (mCurrentSport==null || mCurrentSport.PortName != serial_Sport.Text)// select the serial port
+            {
+                cc_serial  sport = new cc_serial(serial_Sport.Text);
+                sport.slot.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(dataReceived);
+                serial_Sport.Checked = true;
+                mCurrentSport = cc_serial.mSpSlot;
+            }
+            else //close the serial port
+            {
+                foreach (ToolStripMenuItem mSerial in serialToolStripMenuItem.DropDownItems)
+                {
+                    if (mSerial.Text == serial_Sport.Text)
+                    {
+                        ConsoleU.writeLine(String.Format("close [{0}] ok", cc_serial.mName), ConsoleU.Level.Info);
+                       try
+                       {
+                           cc_serial.mName = null;
+                           cc_serial.mSpSlot = null;
+                           mCurrentSport.Close();
+                           mCurrentSport = null;
+                           serial_Sport.Checked = false;
+
+                       }
+                       catch (System.Exception ex)
+                       {
+                           ConsoleU.writeLine(String.Format("close [{0}] failed,cause to:{1}", cc_serial.mName,ex.ToString()), ConsoleU.Level.Error);
+                       }
+                    }
+                }
+            }
+
+        }
+        void dataReceived(System.Object sender, System.IO.Ports.SerialDataReceivedEventArgs e) //received data
+        {
+            System.IO.Ports.SerialPort sp = (System.IO.Ports.SerialPort)sender;
+            string indata = sp.ReadExisting();
+            ConsoleU.writeLine(string.Format("Data Received: {0}", indata), ConsoleU.Level.Info);
+        }
+
         #endregion
 
         #region open debug console
@@ -237,25 +317,57 @@ namespace soc_remote
         }
         #endregion
 
-        #region button click
-        private void button_Click(object sender, EventArgs e)
+        #region initialization interface //  [9/23/2012 Administrator]
+        private void gf_main_Paint(object sender, PaintEventArgs e)
         {
-            Button btn_Click = (Button)sender;
-            for (int i=0; i < cc_control.dtEvent.Rows.Count; i++)
+            Type(this, 15, 0.11);//create a oval interface
+        }
+        private void Type(Control sender, int p_1, double p_2)
+        {
+            GraphicsPath oPath = new GraphicsPath();
+            oPath.AddClosedCurve(new Point[] { new Point(0, sender.Height / p_1),
+                new Point(sender.Width / p_1, 0),
+                new Point(sender.Width - sender.Width / p_1, 0), 
+                new Point(sender.Width, sender.Height / p_1), 
+                new Point(sender.Width, sender.Height - sender.Height / p_1),
+                new Point(sender.Width - sender.Width / p_1, sender.Height),
+                new Point(sender.Width / p_1, sender.Height),
+                new Point(0, sender.Height - sender.Height / p_1) }, (float)p_2);
+            sender.Region = new Region(oPath);
+        }
+        private void treeView_dir_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left & this.WindowState == FormWindowState.Normal)
             {
-                if (cc_control.dtEvent.Rows[i][CTRLEVENTNAME].ToString() == btn_Click.Text)
-                {
-                    ConsoleU.writeLine(String.Format("you click: {0} button \"command line:{1}\"", btn_Click.Text, cc_control.dtEvent.Rows[i][CTRLLINE].ToString()), ConsoleU.Level.Info);
-                }
+                // 移动窗体
+                this.treeView_dir.Capture = false;
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
-
+        }
+        private void statusStrip1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left & this.WindowState == FormWindowState.Normal)
+            {
+                // 移动窗体
+                this.Capture = false;
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
         #endregion
 
-        private void button_Enter(object sender, EventArgs e)
+        #region display console
+        private void gf_main_Shown(object sender, EventArgs e)
         {
-
+            ConsoleU.show();
         }
+        #endregion
+
+        #region close the program button
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        #endregion
 
     }
 }

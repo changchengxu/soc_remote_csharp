@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using GSoft.Utility;
 using System.IO;
+
 namespace soc_remote
 {
     static class Program
@@ -46,6 +47,8 @@ namespace soc_remote
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new gf_main(args));
+            //Application.Run(new soc_remote.gf_remote(args));
+
         }
     }
 }

@@ -61,7 +61,7 @@ static  public DataTable dtEvent;//event DataTable
             DataTable dtTemp = new DataTable();
             mcontrolItems.Clear();
 
-            String printInfo = "bind control... ...";
+            String printInfo = "binding control... ...";
             ConsoleU.writeLine(printInfo, ConsoleU.Level.Warning);
 
             DataSet ds = new DataSet();

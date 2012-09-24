@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="gb2312"?>
+<root>
+  <data_bits>8</data_bits>
+  <parity>None</parity>
+  <stop_bit>1</stop_bit>
+  <baud_rate>115200</baud_rate>
+  <read_timeout>500</read_timeout>
+</root>
