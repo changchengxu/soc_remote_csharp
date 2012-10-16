@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+<dirtree>
+    <current>1</current>
+    <parent>0</parent>
+    <currentname>remote</currentname>
+  </dirtree>
   <dirtree>
     <current>2</current>
-    <parent>0</parent>
+    <parent>1</parent>
     <currentname>remote menu</currentname>
   </dirtree>
-
-
   <dirtree>
     <current>3</current>
-    <parent>0</parent>
+    <parent>1</parent>
     <currentname>sys time</currentname>
   </dirtree>
   <dirtree>
@@ -24,7 +27,7 @@
   </dirtree>
   <dirtree>
     <current>6</current>
-    <parent>0</parent>
+    <parent>1</parent>
     <currentname>epg today</currentname>
   </dirtree>
 </root>

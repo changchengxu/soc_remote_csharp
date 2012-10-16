@@ -14,11 +14,17 @@ using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using soc_remote.control;
 using GSoft.Utility;
+using SocProtocol;
+using SocSerialPort;
+
 using System.IO.Ports;
-using soc_remote.serialport;
+using System.Threading;
 
 namespace soc_remote
 {
+    public  delegate gf_serialize mainFormTrans(string a);// Avoid repeatedly Open subform
+    public delegate void serializeFormTrans(string b);//add or edit serialize frm
+
     public partial class gf_remote : Form
     {
         #region //in order to move the form
@@ -28,19 +34,25 @@ namespace soc_remote
         static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         #endregion
 
+        public event mainFormTrans mMainFormTrans;//this is a delegate in order to  close subForm
         cc_controls mctrls;//create a controls object
         string dir;//directory
+        SocProtocol.UartProtocol ProtocolObject; //create protocol object
+        Thread t;
 
-        public gf_remote()
+        public gf_remote(SocSerialPort.Uart mSpSlot)
         {
             InitializeComponent();
-          
-            mctrls = new cc_controls();//initialization of controls object
-//            mCurrentSport = sp;
-//            ConsoleU.writeLine(String.Format("remote display serial port config: \n dataBits({0}) \n parity({1}) \n stopBit({2}) \n baudRate({3}) \n readTimeout({4})",
-//mCurrentSport.DataBits, mCurrentSport.Parity, mCurrentSport.StopBits, mCurrentSport.BaudRate, mCurrentSport.ReadTimeout), ConsoleU.Level.Error);
-           
 
+            mctrls = new cc_controls();//initialization of controls object
+            ProtocolObject = new SocProtocol.UartProtocol(mSpSlot.slot);
+
+            t = new Thread(new ThreadStart(LoopRandom));
+            t.Start();
+            t.IsBackground = true;
+            //            mCurrentSport = sp;
+            //            ConsoleU.writeLine(String.Format("remote display serial port config: \n dataBits({0}) \n parity({1}) \n stopBit({2}) \n baudRate({3}) \n readTimeout({4})",
+            //mCurrentSport.DataBits, mCurrentSport.Parity, mCurrentSport.StopBits, mCurrentSport.BaudRate, mCurrentSport.ReadTimeout), ConsoleU.Level.Error);
         }
 
         #region initialization interface //  [9/23/2012 Administrator]
@@ -77,8 +89,8 @@ namespace soc_remote
         private void gf_remote_Load(object sender, EventArgs e)
         {
             //load control
-           dir = String.Format("{0}/{1}/{2}",
-                System.IO.Directory.GetCurrentDirectory(), gf_main.FILEPATH, gf_main.CTRLNAME);
+            dir = String.Format("{0}/{1}/{2}",
+                 System.IO.Directory.GetCurrentDirectory(), gf_main.FILEPATH, gf_main.CTRLNAME);
             DataSet ds = new DataSet();
             mctrls.loadDataSet(dir, ds);//init Controls DataSet
             loadCtrls();//init control
@@ -109,7 +121,6 @@ namespace soc_remote
                         //button.Enter += new System.EventHandler(button_Enter);
 
                         String channelColor = "0,1,2,3,4,5,6,7,8,9,UP,DOWN,LEFT,RIGHT"; //set channel color 
-                        string infoColor = "tv_radio,return,OK";
                         //下面是我在网上搜集的
                         System.Drawing.Drawing2D.GraphicsPath myPath = new System.Drawing.Drawing2D.GraphicsPath();
 
@@ -136,28 +147,6 @@ namespace soc_remote
                                 button.FlatStyle = FlatStyle.Popup;
                             }
                         }
-                        foreach (string mInfoColor in infoColor.Split(','))
-                        {
-                            //if (ctrl.Ctr_Text == mInfoColor)
-                            //{
-                            //    myPath.AddRectangle(new Rectangle(4, 4, button.Width, button.Height));
-                            //    button.Region = new Region(myPath);
-                            //    //填充渐变
-                            //    Bitmap B = new Bitmap(button.Width, button.Height); ;
-                            //    Graphics G = Graphics.FromImage(B); ;
-
-                            //    G.FillPath(new System.Drawing.Drawing2D.LinearGradientBrush(new Point(4, 4), new Point(4, button.Height), Color.Yellow, Color.Red), myPath);
-                            //    //描绘椭圆边框
-                            //    //G.DrawRectangle(new Pen(Brushes.Black, 3), new Rectangle(4, 4, button.Width, button.Height - 4));
-                            //    //设置为其背景，不影响Image属性
-                            //    button.BackgroundImage = B;
-                            //    //取消难看的自有边框
-                            //    button.FlatAppearance.BorderSize = 0;
-                            //    //使用“抬起”效果是为了使按钮文字有点击响应视觉
-                            //    button.FlatStyle = FlatStyle.Popup;
-                            //}
-
-                        }
                         button.FlatStyle = FlatStyle.Popup;
 
                         if (ctrl.Ctr_Text == "RED") { button.BackColor = System.Drawing.Color.Red; }
@@ -176,60 +165,193 @@ namespace soc_remote
         #endregion
 
         #region remote button click
-        bool sign = true;
+        //////////Byte[] sendData;
+
+        gf_serialize a;
         private void button_Click(object sender, EventArgs e)
         {
             Button btn_Click = (Button)sender;
+            if (gf_main.serializeSigh == "serialize")
+            {
+                gf_serialize a= mMainFormTrans("serializeFrm");
+                a.remoteEventReceive(btn_Click.Text);
+                return;
+            }
+
             for (int i = 0; i < cc_control.dtEvent.Rows.Count; i++)
             {
                 if (cc_control.dtEvent.Rows[i][gf_main.CTRLEVENTNAME].ToString() == btn_Click.Text)
                 {
-                    if (cc_serial.mSpSlot== null)
-                    {
-                        ConsoleU.writeLine(String.Format("No choice of serial"), ConsoleU.Level.Error);
-                    }
-                    else
-                    {
-                        ConsoleU.writeLine(String.Format("Your choice of serial:{0}", cc_serial.mSpSlot.PortName), ConsoleU.Level.Info);
-                    }
-                    ConsoleU.writeLine(String.Format("you click: {0} button, \"{1}\"", btn_Click.Text, cc_control.dtEvent.Rows[i][gf_main.CTRLLINE].ToString()), ConsoleU.Level.Info);
-                }
 
-                //open the main window 
-                if (btn_Click.Text == "detail")
-                {
-                    //if (!sign)
-                    //{
-                    //    sign = !sign;
-                    //    mMain.Move += new EventHandler(subFormMove);
-                    //    mMain.Show();
-                    //    //this.AddOwnedForm(mMain);
-                    //    mDockMain = new DockU(this);
-                    //    mDockMain.isEnabled = true;
-                    //    mDockMain.position = DockU.Position.MiddleRight;
-                    //    mDockMain.process(mMain);
-
-                    //    break;
-                    //}
-                    //if (sign)
-                    //{
-                    //    sign = !sign;
-                    //    mMain.Hide();
-                    //    this.AddOwnedForm(mMain);
-                    //    break;
-                    //}
-                    
+                        ConsoleU.writeLine(String.Format("you click: {0} button, \"{1}\"", btn_Click.Text, cc_control.dtEvent.Rows[i][gf_main.CTRLLINE].ToString()), ConsoleU.Level.Info);
+                        ProtocolObject.remoteWrite(SocProtocol.Drive.remote, System.Text.Encoding.ASCII.GetBytes(cc_control.dtEvent.Rows[i][gf_main.CTRLLINE].ToString()));
+                 
+                    break;
                 }
             }
 
         }
+
+        //#region  Component package
+        //Byte[] aLengTotal;
+        //Int32 pack(Byte[] data, ref Byte[] pPacket)
+        //{
+        //    Int32 errCode = 0;
+
+        //    UInt16 lenTotal = 7;
+        //    if (data != null)
+        //    {
+        //        lenTotal += (UInt16)data.Length;
+        //    }
+        //    Byte[] packet = new Byte[lenTotal];
+
+        //    packet[(Int32)Index.startCode] = 0xE6;
+        //    packet[(Int32)Index.protocolType] = 0x00;
+        //    packet[(Int32)Index.commandDirection] = 0xDB;
+        //    packet[(Int32)Index.commandCode] = 0x1A;
+
+        //    //aLengTotal = System.BitConverter.GetBytes(lenTotal); 
+
+        //    errCode = uIntToByteArray(lenTotal, ref aLengTotal);
+        //    if (errCode < 0)
+        //    {
+        //        return errCode;
+        //    }
+
+        //    aLengTotal.CopyTo(packet, (Int32)Index.commnadLengthH);
+
+        //    // pack data
+        //    if (data != null)
+        //    {
+        //        data.CopyTo(packet, (Int32)Index.data);
+        //    }
+
+        //    Byte sum = 0;
+        //    foreach (Byte cell in packet)
+        //    {
+        //        sum += cell;
+        //    }
+
+        //    packet[packet.Length - 1] = sum;
+
+        //    pPacket = packet;
+
+        //    return 0;
+        //}
+
+        ////Packet format
+        //public enum Index
+        //{
+        //    startCode,
+        //    protocolType,
+        //    commandDirection,
+        //    commandCode,
+        //    commnadLengthH,
+        //    commandLengthL,
+        //    data
+        //};
+        ////uInt to ByteArray
+        //public Int32 uIntToByteArray(UInt16 uInt, ref Byte[] pArray)
+        //{
+        //    Int32 errCode = 0;
+        //    pArray = new Byte[sizeof(UInt16)];
+
+        //    (pArray)[0] = Convert.ToByte((uInt & 0x0000FF00) >> (int)getMaskOffset(0x0000FF00));
+        //    (pArray)[1] = Convert.ToByte((uInt & 0x000000FF) >> (int)getMaskOffset(0x000000FF));
+        //    return errCode;
+        //}
+
+        //UInt32 getMaskOffset(UInt32 mask)
+        //{
+        //    UInt32 offset = 0;
+        //    const UInt32 maskBit0 = 0x00000001;
+
+        //    if (mask <= 0)
+        //    {
+        //        return offset;
+        //    }
+
+        //    for (offset = 0; offset < sizeof(UInt32) * 8; offset++)
+        //    {
+        //        if ((mask & maskBit0) > 0)
+        //        { // bit0 is 1
+        //            break;
+        //        }
+
+        //        mask >>= 1;
+        //    }
+
+        //    return offset;
+        //}
+        //#endregion
+
+        #endregion
+
+        #region random Loop
+
+        Random ran = new Random();
+        Int32 ranID = 0;
+        //private void timer1_Tick(object sender, EventArgs e)
+        private void LoopRandom()
+        {
+            while (true)
+            {
+                if (gf_main.testBegin)//click test button
+                {
+                    if (gf_main.randomOrNo)//click random button
+                    {
+                        ranID = ran.Next(cc_control.dtEvent.Rows.Count);
+                        if (cc_control.dtEvent.Rows[ranID][gf_main.CTRLLINE].ToString() != "")//avoid empty event
+                        {
+                            ConsoleU.writeLine(String.Format("you click: {0} button, \"{1}\"", cc_control.dtEvent.Rows[ranID][gf_main.CTRLEVENTNAME].ToString(), cc_control.dtEvent.Rows[ranID][gf_main.CTRLLINE].ToString()), ConsoleU.Level.Info);
+                            ProtocolObject.remoteWrite(SocProtocol.Drive.remote, System.Text.Encoding.ASCII.GetBytes(cc_control.dtEvent.Rows[ranID][gf_main.CTRLLINE].ToString()));
+                            System.Threading.Thread.Sleep(2000);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = gf_main.dgvIndex; i < gf_main.dsRandomXml.Tables[0].Rows.Count; i++)
+                        {
+                            string[] random = gf_main.dsRandomXml.Tables[0].Rows[i]["serialize_Text"].ToString().Split(',');
+                            foreach (string mRandom in random)
+                            {
+                                for (int index = 0; index < cc_control.dtEvent.Rows.Count; index++)
+                                {
+                                    if (!gf_main.testBegin)//click test button
+                                    {
+                                        break;
+                                    }
+                                    if (mRandom == cc_control.dtEvent.Rows[index][gf_main.CTRLEVENTNAME].ToString())
+                                    {
+                                        ConsoleU.writeLine(String.Format("you click: {0} button, \"{1}\"", cc_control.dtEvent.Rows[index][gf_main.CTRLEVENTNAME].ToString(), cc_control.dtEvent.Rows[index][gf_main.CTRLLINE].ToString()), ConsoleU.Level.Info);
+                                        ProtocolObject.remoteWrite(SocProtocol.Drive.remote, System.Text.Encoding.ASCII.GetBytes(cc_control.dtEvent.Rows[index][gf_main.CTRLLINE].ToString()));
+                                        System.Threading.Thread.Sleep(2000);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                Thread.Sleep(1000);
+            }
+        }
         #endregion
 
         #region Off remote controller
+        private void pictureBox1_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.Show("To exit from this page", pictureBox1, pictureBox1.Width, pictureBox1.Height, 2000);
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            mMainFormTrans("off");
+            t.Abort();
+            gf_main.testBegin = false;
             this.Close();
         }
         #endregion
+
     }
+
 }

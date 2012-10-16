@@ -47,7 +47,7 @@ namespace soc_remote
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new gf_main(args));
-            //Application.Run(new soc_remote.gf_remote(args));
+            //Application.Run(new soc_remote.gf_remote());
 
         }
     }

@@ -50,3 +50,34 @@ E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remo
 E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\GenerateResource.write.1.tlog
 D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_remote.resources
 E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_remote.resources
+D:\用户目录\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.exe
+D:\用户目录\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.pdb
+D:\用户目录\soc_remote_csharp\soc_remote\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\用户目录\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_main.resources
+D:\用户目录\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_remote.resources
+D:\用户目录\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.Properties.Resources.resources
+D:\用户目录\soc_remote_csharp\soc_remote\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\用户目录\soc_remote_csharp\soc_remote\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\用户目录\soc_remote_csharp\soc_remote\bin\Debug\soc_remote.exe
+D:\用户目录\soc_remote_csharp\soc_remote\bin\Debug\soc_remote.pdb
+D:\用户目录\soc_remote_csharp\soc_remote\bin\Debug\GSoft.dll
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\bin\Debug\soc_protocol.dll
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\bin\Debug\soc_serialport.dll
+D:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_serialize.resources
+E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\bin\Debug\soc_protocol.dll
+E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\bin\Debug\soc_serialport.dll
+E:\用户目录\Documents\Visual Studio 2010\Projects\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_serialize.resources
+D:\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.exe
+D:\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.pdb
+D:\soc_remote_csharp\soc_remote\bin\Debug\soc_remote.exe
+D:\soc_remote_csharp\soc_remote\bin\Debug\soc_remote.pdb
+D:\soc_remote_csharp\soc_remote\bin\Debug\GSoft.dll
+D:\soc_remote_csharp\soc_remote\bin\Debug\soc_protocol.dll
+D:\soc_remote_csharp\soc_remote\bin\Debug\soc_serialport.dll
+D:\soc_remote_csharp\soc_remote\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_main.resources
+D:\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_remote.resources
+D:\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.gf_serialize.resources
+D:\soc_remote_csharp\soc_remote\obj\x86\Debug\soc_remote.Properties.Resources.resources
+D:\soc_remote_csharp\soc_remote\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\soc_remote_csharp\soc_remote\obj\x86\Debug\GenerateResource.write.1.tlog

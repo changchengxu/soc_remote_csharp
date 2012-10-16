@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="gb2312"?>
+<root>
+  <wait_transfer>50</wait_transfer>
+  <timeout_cmd>500</timeout_cmd>
+  <timeout_read>5000</timeout_read>
+  <timeout_erase>500</timeout_erase>
+  <timeout_write>500</timeout_write>
+</root>

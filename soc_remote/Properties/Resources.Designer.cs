@@ -60,6 +60,27 @@ namespace soc_remote.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap HDICLogo {
+            get {
+                object obj = ResourceManager.GetObject("HDICLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Level {
+            get {
+                object obj = ResourceManager.GetObject("Level", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Vertical {
+            get {
+                object obj = ResourceManager.GetObject("Vertical", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap 水珠22 {
             get {
                 object obj = ResourceManager.GetObject("水珠22", resourceCulture);

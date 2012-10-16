@@ -11,6 +11,10 @@
       <type>click</type>		
       <line>remote Num1</line>	
     </event>
+  <event>
+      <type>enter</type>		
+      <line>remote menu11</line>	
+    </event>
   </control>
   <control>
     <text>2</text>
@@ -408,8 +412,18 @@
       <line>remote F4</line>
     </event>
   </control>
-
-
+  <control>
+    <text>detail</text>
+    <x>270</x>
+    <y>430</y>
+    <w>60</w>
+    <h>20</h>
+    <type>button</type>
+    <event>
+      <type>click</type>
+      <line>open windows form... ...</line>
+    </event>
+  </control>
 </root>
 
 
